@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
-from typing import Dict, Optional, List
-from pathlib import Path
+from typing import Dict, Optional
+
 
 TIME_PATTERN = "%d/%b/%Y:%H:%M:%S %z"
 LOG_PATTERN = re.compile(

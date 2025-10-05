@@ -5,13 +5,13 @@ from pathlib import Path
 
 TIME_PATTERN = "%d/%b/%Y:%H:%M:%S %z"
 LOG_PATTERN = re.compile(
-    r'(?P<remote_addr>\S+)\s+'  # source ip, remote address
-    r'(?P<ident>\S+)\s+'  # ident (usual value '-')
-    r'(?P<authuser>\S+)\s+'  # authuser (usual value '-')
-    r'\[(?P<time>.+?)\]\s+'  # [04/Oct/2025:14:45:30 +0800]
+    r"(?P<remote_addr>\S+)\s+"  # source ip, remote address
+    r"(?P<ident>\S+)\s+"  # ident (usual value '-')
+    r"(?P<authuser>\S+)\s+"  # authuser (usual value '-')
+    r"\[(?P<time>.+?)\]\s+"  # [04/Oct/2025:14:45:30 +0800]
     r'"(?P<request>.*?)"\s+'  # e.g. "GET /path HTTP/1.1"
-    r'(?P<status>\d{3})\s+'  # 200, ,400, 404, 500, 502, etc
-    r'(?P<body_bytes_sent>\S+)\s+'  # 615 or '-'
+    r"(?P<status>\d{3})\s+"  # 200, ,400, 404, 500, 502, etc
+    r"(?P<body_bytes_sent>\S+)\s+"  # 615 or '-'
     r'"(?P<http_referrer>.*?)"\s+'  # "-" or "https://ref"
     r'"(?P<user_agent>.*?)"'  # User Agent
 )
@@ -51,6 +51,8 @@ def parse_log_entry(line: str) -> Optional[Dict]:
 
     return log_dict
 
+
+# def parse_file(input_path: Path) -> List[Dict]:
 
 if __name__ == "__main__":
     sample = '127.0.0.1 - - [04/Oct/2025:14:34:09 +0800] "GET / HTTP/1.1" 200 615 "-" "curl/8.7.1"'

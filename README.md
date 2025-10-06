@@ -32,7 +32,8 @@ Developed as part of a **Product Engineering assessment**, this solution demonst
   - `parse.py` — helper functions for log parsing 
   - `transform.py` — helper function for writing logs to JSON
   - `main.py` — Project Entry Point
-
+<br>
+![alt text](https://github.com/tokjonathan/NginxEnrich/blob/master/project_diagram.png?raw=true)
 ---
 ## Setup
 Setting up on <ins>Linux / MacOS</ins>

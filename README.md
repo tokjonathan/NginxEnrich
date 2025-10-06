@@ -33,7 +33,10 @@ Developed as part of a **Product Engineering assessment**, this solution demonst
   - `transform.py` — helper function for writing logs to JSON
   - `main.py` — Project Entry Point
 <br>
-![alt text](https://github.com/tokjonathan/NginxEnrich/blob/master/project_diagram.png?raw=true)
+
+![Alt text](project_diagram.png "project diagram")
+
+
 ---
 ## Setup
 Setting up on <ins>Linux / MacOS</ins>

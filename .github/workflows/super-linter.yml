@@ -26,9 +26,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BRANCH: master
-          VALIDATE_ALL_CODEBASE: true       # lint everything for now; flip to false later
+          VALIDATE_ALL_CODEBASE: false       # lint everything for now; flip to false later
           IGNORE_GITIGNORED_FILES: true
-          FILTER_REGEX_EXCLUDE: "^(venv/|.venv/|__pycache__/|dist/|build/)"
+          FILTER_REGEX_EXCLUDE: "^(venv/|.venv/|__pycache__/|dist/|build/|output_.*\\.json)"
 
           # enable Python linters wanted
           VALIDATE_PYTHON_BLACK: true

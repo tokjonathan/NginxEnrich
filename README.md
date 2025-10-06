@@ -27,6 +27,7 @@ Developed as part of a **Product Engineering assessment**, this solution demonst
   - `.gitignore`
   - `requirements.txt`
   - `access.log` — sample Nginx access log for testing
+  - `enriched_output_<DateTime>.JSON` — sample output JSON file
   - `enrich.py` — helper functions for user-agent enriching
   - `parse.py` — helper functions for log parsing 
   - `transform.py` — helper function for writing logs to JSON

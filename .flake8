@@ -1,0 +1,18 @@
+[flake8]
+
+# Formatting Settings
+max-line-length = 100
+extend-ignore = E203, E266, E501, W503, F405, E731, E741
+
+# Files/Folders to Skip
+exclude = venv,
+    .venv,
+    __pycache__,
+    build,
+    dist,
+    .git,
+    .github,
+    *.egg-info,
+    .mypy_cache,
+    .pytest_cache
+

@@ -1,7 +1,6 @@
 import re
 from datetime import datetime
 from typing import Dict, Optional, List
-from enrich import enrich_user_agent
 
 TIME_PATTERN = "%d/%b/%Y:%H:%M:%S %z"
 LOG_PATTERN = re.compile(
@@ -21,7 +20,9 @@ def parse_log_entry(line: str) -> Optional[Dict]:
     # Conduct Regex match on log
     match_object = LOG_PATTERN.match(line.strip())
     if not match_object:
-        print("Log entry does not match known regex pattern for Nginx Access Logs")
+        print(
+            "From parse.py : A log entry does not match known regex pattern for Nginx Access Logs"
+        )
         return None
 
     log_dict = match_object.groupdict()
@@ -57,21 +58,14 @@ def parse_file(filepath) -> List[Dict]:
         for line_no, line in enumerate(file_obj, 1):
             parsed_entry = parse_log_entry(line)
             if parsed_entry is None:
-                results.append({"parse_error": True, "line_no": line_no, "raw_line": line.rstrip("\n")})
+                results.append(
+                    {
+                        "parse_error": True,
+                        "line_no": line_no,
+                        "raw_line": line.rstrip("\n"),
+                    }
+                )
             else:
                 parsed_entry["line_no"] = line_no
                 results.append(parsed_entry)
     return results
-
-
-if __name__ == "__main__":
-    sample = '127.0.0.1 - - [04/Oct/2025:14:34:09 +0800] "GET / HTTP/1.1" 200 615 "-" "curl/8.7.1"'
-
-    # Test Run
-    filepath = '/Users/jonathantok/Documents/PyCharmDocs/nginx_enrich/access.log'
-    parsed_logs = parse_file(filepath)
-    for i in parsed_logs:
-        enriched_entries = enrich_user_agent(i)
-        print(enriched_entries)
-
-

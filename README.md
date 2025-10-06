@@ -22,7 +22,6 @@ Developed as part of a **Product Engineering assessment**, this solution demonst
   - `.github/`
     - `workflows/`
       - `super-linter.yml` 
-  - `.dockerignore` — flake8 docker ignore file, prevent docker issues on github actions
   - `.flake8`  — flake8 configuration for super-linter
   - `.gitignore`
   - `requirements.txt`

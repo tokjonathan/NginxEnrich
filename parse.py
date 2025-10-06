@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
-from typing import Dict, Optional
-
+from typing import Dict, Optional, List
+from enrich import enrich_user_agent
 
 TIME_PATTERN = "%d/%b/%Y:%H:%M:%S %z"
 LOG_PATTERN = re.compile(
@@ -12,12 +12,11 @@ LOG_PATTERN = re.compile(
     r'"(?P<request>.*?)"\s+'  # e.g. "GET /path HTTP/1.1"
     r"(?P<status>\d{3})\s+"  # 200, ,400, 404, 500, 502, etc
     r"(?P<body_bytes_sent>\S+)\s+"  # 615 or '-'
-    r'"(?P<http_referrer>.*?)"\s+'  # "-" or "https://ref"
+    r'"(?P<http_referer>.*?)"\s+'  # "-" or "https://ref"
     r'"(?P<user_agent>.*?)"'  # User Agent
 )
 
 
-# Nginx Access Log Format Parsing, returns dictionary
 def parse_log_entry(line: str) -> Optional[Dict]:
     # Conduct Regex match on log
     match_object = LOG_PATTERN.match(line.strip())
@@ -52,9 +51,27 @@ def parse_log_entry(line: str) -> Optional[Dict]:
     return log_dict
 
 
-# def parse_file(input_path: Path) -> List[Dict]:
+def parse_file(filepath) -> List[Dict]:
+    results = []
+    with open(filepath, "r", encoding="utf-8", errors="replace") as file_obj:
+        for line_no, line in enumerate(file_obj, 1):
+            parsed_entry = parse_log_entry(line)
+            if parsed_entry is None:
+                results.append({"parse_error": True, "line_no": line_no, "raw_line": line.rstrip("\n")})
+            else:
+                parsed_entry["line_no"] = line_no
+                results.append(parsed_entry)
+    return results
+
 
 if __name__ == "__main__":
     sample = '127.0.0.1 - - [04/Oct/2025:14:34:09 +0800] "GET / HTTP/1.1" 200 615 "-" "curl/8.7.1"'
-    result = parse_log_entry(sample)
-    print(result)
+
+    # Test Run
+    filepath = '/Users/jonathantok/Documents/PyCharmDocs/nginx_enrich/access.log'
+    parsed_logs = parse_file(filepath)
+    for i in parsed_logs:
+        enriched_entries = enrich_user_agent(i)
+        print(enriched_entries)
+
+
